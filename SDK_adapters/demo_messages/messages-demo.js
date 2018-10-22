@@ -65,50 +65,6 @@ function messagesDemoAdapter(bot) {
       }
     },
   };
-  var buttonList2= {
-    message: 'Do you want to buy anything else?',
-    type:'answer',
-    actionField: { //Only shown when we have information related on how to display this fields.
-      fieldType:'list', //Only will be send in case the variable is list type -> buttons/dropdown
-      disableInput: true,
-      actionFieldId:'id2',       // UniqueId used by the SDK to identify the current actionField
-      actionMethod:'sendMessage',
-      variableName:'hero_name',
-      listValues: {
-          displayType: "buttons", // Possible values: 'buttons', 'dropdown'
-          values:[
-            {"label":["Yes"],"option":"1"},
-            {"label":["No"],"option":"2"},
-          ]
-      }
-    },
-    actionFieldEvents: {
-      disable: [],         //array of fieldActionID with the selectors that have to be disabled.
-      updateRequestedAction: ["id1"]    //array of fieldActionID with the selectors that have to be updated to don't use sendMessage.
-    }
-  };
-  var dropdown3 = {
-    message: 'Where are you from?',
-    type:'answer',
-    actionField: { //Only shown when we have information related on how to display this fields.
-      fieldType:'list', //Only will be send in case the variable is list type -> buttons/dropdown
-      disableInput: true,
-      actionFieldId:'id3',       // UniqueId used by the SDK to identify the current actionField
-      variableName:"hero_name",
-      actionMethod:'sendMessage',
-      listValues: {
-          displayType: "dropdown", // Possible values: 'buttons', 'dropdown'
-          values:[
-            {"label":["Barcelona","Tarragona"],"option":"test2"},
-            {"label":["Mars","Mordor"],"option":"test3"},
-          ]
-      }
-    },
-    actionFieldEvents: {
-      disable: ["id1","id2"],         //array of fieldActionID with the selectors that have to be disabled.
-      updateRequestedAction: []    //array of fieldActionID with the selectors that have to be updated to don't use sendMessage.
-    }
-  };
   var modalSystemMessage = {
       message: 'Modal systemMessage example',
       translate: true,
@@ -382,12 +338,6 @@ function messagesDemoAdapter(bot) {
         break;
       case 'dropdown':
         bot.actions.displayChatbotMessage(dropdownList);
-        break;
-      case 'button 2':
-        bot.actions.displayChatbotMessage(buttonList2);
-        break;
-      case 'dropdown 3':
-        bot.actions.displayChatbotMessage(dropdown3);
         break;
       default:
         next(messageData);
