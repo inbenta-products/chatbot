@@ -29,6 +29,86 @@ function messagesDemoAdapter(bot) {
       }
     }
   };
+  var buttonsList = {
+    message: 'this is an example variableList message',
+    type:'answer',
+    actionField: { //Only shown when we have information related on how to display this fields.
+      fieldType:'list', //Only will be send in case the variable is list type -> buttons/dropdown
+      disableInput: true,
+      actionFieldId:'uuid',       // UniqueId used by the SDK to identify the current actionField
+      variableName:'hero_name',
+      listValues: {
+          displayType: "buttons", // Possible values: 'buttons', 'dropdown'
+          values: [
+              {"label": ["phone","test"], "option": 2},
+              {"label": ["tv"], "option": 5}
+          ]
+      }
+    }
+  };
+  var dropdownList = {
+    message: 'hello, what do you want to buy?',
+    type:'answer',
+    actionField: { //Only shown when we have information related on how to display this fields.
+      fieldType:'list', //Only will be send in case the variable is list type -> buttons/dropdown
+      disableInput: true,
+      actionFieldId:'id1',       // UniqueId used by the SDK to identify the current actionField
+      // actionMethod:'addVariable',
+      variableName:'hero_name',
+      listValues: {
+          displayType: "dropdown", // Possible values: 'buttons', 'dropdown'
+          values:[
+            {"label":["Iphone 7"],"option":"Apple"},
+            {"label":["google pixel 3"],"option":"Google"},
+            {"label":["Huawei P20 Pro"],"option":"Huawei"},
+          ]
+      }
+    },
+  };
+  var buttonList2= {
+    message: 'Do you want to buy anything else?',
+    type:'answer',
+    actionField: { //Only shown when we have information related on how to display this fields.
+      fieldType:'list', //Only will be send in case the variable is list type -> buttons/dropdown
+      disableInput: true,
+      actionFieldId:'id2',       // UniqueId used by the SDK to identify the current actionField
+      actionMethod:'sendMessage',
+      variableName:'hero_name',
+      listValues: {
+          displayType: "buttons", // Possible values: 'buttons', 'dropdown'
+          values:[
+            {"label":["Yes"],"option":"1"},
+            {"label":["No"],"option":"2"},
+          ]
+      }
+    },
+    actionFieldEvents: {
+      disable: [],         //array of fieldActionID with the selectors that have to be disabled.
+      updateRequestedAction: ["id1"]    //array of fieldActionID with the selectors that have to be updated to don't use sendMessage.
+    }
+  };
+  var dropdown3 = {
+    message: 'Where are you from?',
+    type:'answer',
+    actionField: { //Only shown when we have information related on how to display this fields.
+      fieldType:'list', //Only will be send in case the variable is list type -> buttons/dropdown
+      disableInput: true,
+      actionFieldId:'id3',       // UniqueId used by the SDK to identify the current actionField
+      variableName:"hero_name",
+      actionMethod:'sendMessage',
+      listValues: {
+          displayType: "dropdown", // Possible values: 'buttons', 'dropdown'
+          values:[
+            {"label":["Barcelona","Tarragona"],"option":"test2"},
+            {"label":["Mars","Mordor"],"option":"test3"},
+          ]
+      }
+    },
+    actionFieldEvents: {
+      disable: ["id1","id2"],         //array of fieldActionID with the selectors that have to be disabled.
+      updateRequestedAction: []    //array of fieldActionID with the selectors that have to be updated to don't use sendMessage.
+    }
+  };
   var modalSystemMessage = {
       message: 'Modal systemMessage example',
       translate: true,
@@ -54,7 +134,7 @@ function messagesDemoAdapter(bot) {
     };
   var Options={
       type: 'answer',
-      message: '<ul><li>multiple</li><li>polar</li><li>system</li><li>side window</li><li>media</li><li>related</li><li>show upload</li><li>hide upload</li><li>agent</li><li>default</li><li>hide activity</li><li>system modal</li><li>custom window</li><li>federated search</li><li>federated km</li><li>federated nothing</li><li>rating</li></ul>'
+      message: '<ul><li>multiple</li><li>polar</li><li>system</li><li>side window</li><li>media</li><li>related</li><li>show upload</li><li>hide upload</li><li>agent</li><li>default</li><li>hide activity</li><li>system modal</li><li>custom window</li><li>federated search</li><li>federated km</li><li>federated nothing</li><li>button list</li><li>dropdown</li><li>dropdownIntent</li></ul>'
     };
   var KMContentsMessage ={
     message: 'Introduction text for a km content',
@@ -233,10 +313,11 @@ function messagesDemoAdapter(bot) {
       }
     }});
     bot.actions.displayChatbotMessage(mediaChatbotMessage);
-    displaySideWindowAnswer(bot)
+    displaySideWindowAnswer(bot);
     displayPolarQuestionAnswer(bot);
     displayMultipleAnswer(bot);
     displaySystemMessage(bot);
+    bot.actions.displayChatbotMessage(dropdownList);
     bot.actions.showConversationWindow();
     next();
   });
@@ -249,10 +330,10 @@ function messagesDemoAdapter(bot) {
         displayMultipleAnswer(bot);
         break;
       case 'show upload':
-        bot.actions.showUploadMediaButton()
+        bot.actions.showUploadMediaButton();
         break;
       case 'hide upload':
-        bot.actions.hideUploadMediaButton()
+        bot.actions.hideUploadMediaButton();
         break;
       case 'polar':
         displayPolarQuestionAnswer(bot);
@@ -296,6 +377,18 @@ function messagesDemoAdapter(bot) {
       case 'rating':
         bot.actions.displayChatbotMessage(ratingMessage);
         break;
+      case 'buttons list':
+        bot.actions.displayChatbotMessage(buttonsList);
+        break;
+      case 'dropdown':
+        bot.actions.displayChatbotMessage(dropdownList);
+        break;
+      case 'button 2':
+        bot.actions.displayChatbotMessage(buttonList2);
+        break;
+      case 'dropdown 3':
+        bot.actions.displayChatbotMessage(dropdown3);
+        break;
       default:
         next(messageData);
         return;
@@ -314,16 +407,18 @@ function displayMultipleAnswer(bot) {
     type: 'multipleChoiceQuestion',
     options: [
       {
-        label: 'One option',
+        label: 'Test content',
+        value: 'demo',
+        revisitableLink:'test'
+      },
+      {
+        label: 'Option with no directCall',
         value: 'demo'
       },
       {
-        label: 'Another option',
-        value: 'demo'
-      },
-      {
-        label: 'The last question',
-        value: 'demo'
+        label: 'Content with related and directCall',
+        value: 'demo',
+        revisitableLink:'related'
       }
     ]
   });
@@ -354,7 +449,7 @@ function displayMediaAnswer(bot) {
         name: 'my-file.jpg',
         url: '/path/to/my-file.jpg'
       }
-  });
+    });
 }
 
 function displaySideWindowAnswer(bot) {
@@ -362,7 +457,7 @@ function displaySideWindowAnswer(bot) {
   var sideWindow = {
     sideWindowContent: '<p>You can open me again clicking the "More info" faq\'s button. '+
     'Ask the following on order to have the different outputs:</p> </b></br><ul><li>multiple</li><li>polar</li><li>system</li><li>side window</li>'+
-    '<li>media</li><li>related</li><li>show upload</li><li>hide upload</li><li>agent</li><li>default</li><li>hide activity</li><li>system modal</li><li>custom window</li><li>federated search</li><li>federated km</li><li>federated nothing</li><li>rating</li></ul>',
+    '<li>media</li><li>related</li><li>show upload</li><li>hide upload</li><li>agent</li><li>default</li><li>hide activity</li><li>system modal</li><li>custom window</li><li>federated search</li><li>federated km</li><li>federated nothing</li><li>rating</li><li>buttons list</li><li>dropdown</li><li>dropdownList</li>dropdownIntent</ul>',
     sideWindowTitle: 'Hello world!',
     trackingCode: 'testTrackingCode'
   };
