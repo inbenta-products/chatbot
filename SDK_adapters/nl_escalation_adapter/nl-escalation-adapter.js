@@ -89,7 +89,7 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
               }else if (noAgentsAvailable.action == "displayChatbotMessage"){
                 chatBot.actions.displayChatbotMessage({type:'answer',message:noAgentsAvailable.value});
               }
-            chatBot.api.track('CONTACT_UNATTENDED',{value:"CustomValue"});
+            chatBot.api.track('CONTACT_UNATTENDED',{value:"TRUE"});
             return;
             }
           });
@@ -99,7 +99,7 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
           }else if (rejectedEscalation.action =='displayChatbotMessage'){
             chatBot.actions.displayChatbotMessage({type:'answer',message:rejectedEscalation.value});
           }
-          chatBot.api.track('CONTACT_REJECTED',{value:"CustomValue"});
+          chatBot.api.track('CONTACT_REJECTED',{value:"TRUE"});
           chatBot.actions.enableInput();
         }else{
           next(optionData);
@@ -109,7 +109,7 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
     });
     chatBot.subscriptions.onEscalateToAgent(function(escalationData, next) {
       console.log(escalationData);
-      chatBot.api.track('CONTACT_ATTENDED',{value:"CustomValue"});
+      chatBot.api.track('CONTACT_ATTENDED',{value:"TRUE"});
       return next(escalationData);
     });
  };
