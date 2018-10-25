@@ -9,3 +9,5 @@ This adapter displays all the types of answers and outputs available in the Chat
 
 
 **Caution:** If you want to use these adapters "as is" in production environments, you **must** copy and use them from your servers.
+
+More information related to the adapter can be found in https://apidocs.inbenta.io/javascript-sdks/chatbot/sdk-adapters/output-demo
