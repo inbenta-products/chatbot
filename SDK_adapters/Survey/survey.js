@@ -12,7 +12,7 @@ function showSurvey(surveyID) {
      */
     function receiveMessage(event) {
       if (event.data.message == "inbenta.survey.successful_answer") {
-        surveyProcess='toInit';
+        surveyProcess='toFinish';
         chatbot.actions.resetSession(); //Close chatbot and resetSession
       }
     }
