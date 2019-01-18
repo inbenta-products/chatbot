@@ -1,8 +1,8 @@
-/**
+**
  * This adapter creator export an adapter which hides the conversation window when the user types end in the query. It accepts
  * two entry arguments as the configuration options.
  *
- * 
+ *
  * @param {Function} checkAgents  [Function to check if there are agents avialable]
  * @param {String} escalateNLForm [string]
  * @param {Object} rejectedEscalation [action and value to handle when the user rejects the escalation]
@@ -81,6 +81,7 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
               if (result.hasOwnProperty('reason')) {
                 if(typeof result.reason=='string' && noAgentsAvailable.action == "displayChatbotMessage"){
                   chatBot.actions.displayChatbotMessage({type:'answer',message:result.reason,translate:true});
+                  chatBot.actions.enableInput();
                   return;
                 }
               }
@@ -89,8 +90,9 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
               }else if (noAgentsAvailable.action == "displayChatbotMessage"){
                 chatBot.actions.displayChatbotMessage({type:'answer',message:noAgentsAvailable.value});
               }
-            chatBot.api.track('CONTACT_UNATTENDED',{value:"TRUE"});
-            return;
+              chatBot.api.track('CONTACT_UNATTENDED',{value:"TRUE"});
+              chatBot.actions.enableInput();
+              return;
             }
           });
         }else if (optionData.option.value === "escalateNo") {
@@ -108,7 +110,6 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
         }
     });
     chatBot.subscriptions.onEscalateToAgent(function(escalationData, next) {
-      console.log(escalationData);
       chatBot.api.track('CONTACT_ATTENDED',{value:"TRUE"});
       return next(escalationData);
     });
