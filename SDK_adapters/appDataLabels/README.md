@@ -8,4 +8,4 @@ Caution: This is a solution for systems that do not have their own CMS system. T
 
 Inbenta recommends that you use your own content management system to store this configuration.
 
-More information related to the adapter can be found in https://apidocs.inbenta.io/javascript-sdks/chatbot/sdk-adapters/AppData-labels
+More information related to the adapter can be found in https://developers.inbenta.io/chatbot/javascript-sdk/sdk-adapters/AppData-labels
