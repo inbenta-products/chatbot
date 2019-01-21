@@ -7,4 +7,4 @@ In this scenario, we have a new product, and we want to present it to  every use
 The first step is to build the adapter. To follow best practices, we build it in an external js file.
 
 
-More information related to the adapter can be found in https://apidocs.inbenta.io/javascript-sdks/chatbot/sdk-adapters/promotional-message
+More information related to the adapter can be found in https://developers.inbenta.io/chatbot/javascript-sdk/sdk-adapters/promotional-message
