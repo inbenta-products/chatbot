@@ -30,4 +30,4 @@ The ```launchNLEsclationForm``` function creates the adapter. These are the entr
 
 In the example below, we show the value of the `rejectedEscalation` as a `chatbotAnswer`, and do a linguistic match in the `NoAgentsAvailable` to show the content of the intent.
 
-More information related to the adapter can be found in https://apidocs.inbenta.io/javascript-sdks/chatbot/sdk-adapters/nl-escalation-adapter
+More information related to the adapter can be found in https://developers.inbenta.io/chatbot/javascript-sdk/sdk-adapters/nl-escalation-adapter
