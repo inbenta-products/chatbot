@@ -1,14 +1,14 @@
 # Inbenta Chatbot
 This repository is intended to show some  adapters for the Inbenta chatbot SDK.
-https://apidocs.inbenta.io/javascript-sdks/chatbot/sdk-setup
+https://developers.inbenta.io/chatbot/javascript-sdk/sdk-setup
 
 You can read more information about the adapters in the following link:
-https://apidocs.inbenta.io/javascript-sdks/chatbot/sdk-adapters
+https://developers.inbenta.io/chatbot/javascript-sdk/sdk-adapters
 
 
 
 ## Adapters overview
-An adapter is a function that has access to the Chatbot object. Please read the [Customization](https://apidocs.inbenta.io/javascript-sdks/chatbot/sdk-customization)  page and our handy [Step-by-Step Guide](https://apidocs.inbenta.io/javascript-sdks/chatbot/sdk-customization/step-by-step-guide) carefully before use for a full description of adapters and their functions. 
+An adapter is a function that has access to the Chatbot object. Please read the [Customization](https://developers.inbenta.io/chatbot/javascript-sdk/sdk-customization)  page and our handy [Step-by-Step Guide](https://developers.inbenta.io/chatbot/javascript-sdk/sdk-customization/step-by-step-guide) carefully before use for a full description of adapters and their functions. 
 
 ## Adapters Guide
 Adapters are a powerful tool that allow you to expand the functions and behaviour of your Inbenta Chatbot.
