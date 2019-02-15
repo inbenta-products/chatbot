@@ -31,14 +31,14 @@ function showSurvey(surveyID) {
         });
       }
     });
-    chatbot.subscriptions.onDisplaySystemMessage(function(messageData,next) {
+chatbot.subscriptions.onDisplaySystemMessage(function(messageData,next) {
       if(messageData.id=="exitConversation"){
         if(surveyProcess=='inProgress'){
           chatbot.actions.resetSession();
         }else {
           return next(messageData);
         }
-      }
+      }else return next(messageData); 
     });
   };
 }
