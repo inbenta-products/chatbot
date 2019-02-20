@@ -1,15 +1,16 @@
-**
+/**
  * This adapter creator export an adapter which hides the conversation window when the user types end in the query. It accepts
  * two entry arguments as the configuration options.
  *
  *
  * @param {Function} checkAgents  [Function to check if there are agents avialable]
- * @param {String} escalateNLForm [string]
+ * @param {String} escalateNLForm [String to be send to trigger the escalationForm]
  * @param {Object} rejectedEscalation [action and value to handle when the user rejects the escalation]
  * @param {Object} noAgentsAvailable [action and value to handle when when there are no agents available]
  * @param {Number} MaxNoResults [Number of no-results before trigger the escalation]
+ * @param {Boolean} hideEscalateIntentMessage [When set to true, it will ignore the message given for the escalation message]
  */
-function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noAgentsAvailable,MaxNoResults) {
+function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noAgentsAvailable,MaxNoResults,hideEscalateIntentMessage=true) {
   var initMaxResults=3;
   var setEscalations=true;
   var noResults=1;
@@ -43,7 +44,8 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
     chatBot.subscriptions.onDisplayChatbotMessage(function(messageData, next) {
       if(typeof messageData.flags!=="undefined" && setEscalations) {
         if (messageData.flags.length>0) {
-            if(messageData.flags.indexOf('escalate')!==-1){
+          if(messageData.flags.indexOf('escalate')!==-1){
+            if (!hideEscalateIntentMessage) next(messageData);
               chatBot.actions.displaySystemMessage(escalateSystemMessageData);
               chatBot.actions.disableInput();
               return;
@@ -63,7 +65,6 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
         }
       }
       return next(messageData);
-
     });
     /**
      * Subscription to DisplayAgentResponse, to check if the user wants to escalate
@@ -78,17 +79,10 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
               chatBot.actions.sendMessage(sendEscalateForm);
               return;
             }else {
-              if (result.hasOwnProperty('reason')) {
-                if(typeof result.reason=='string' && noAgentsAvailable.action == "displayChatbotMessage"){
-                  chatBot.actions.displayChatbotMessage({type:'answer',message:result.reason,translate:true});
-                  chatBot.actions.enableInput();
-                  return;
-                }
-              }
-              if(noAgentsAvailable.action == "intentMatch"){
+              if(noAgentsAvailable.action=="displayChatbotMessage"){
+                chatBot.actions.displayChatbotMessage({type:'answer',message:noAgentsAvailable.value,translate:true});
+              }else if (noAgentsAvailable.action =="intentMatch"){
                 chatBot.actions.sendMessage({message:noAgentsAvailable.value});
-              }else if (noAgentsAvailable.action == "displayChatbotMessage"){
-                chatBot.actions.displayChatbotMessage({type:'answer',message:noAgentsAvailable.value});
               }
               chatBot.api.track('CONTACT_UNATTENDED',{value:"TRUE"});
               chatBot.actions.enableInput();
@@ -134,4 +128,4 @@ function validateEscalateConditions(evaluatedObject){
     return false;
   }
 }
-window.launchNLEsclationForm = launchNLEsclationForm;
+module.exports=launchNLEsclationForm;
