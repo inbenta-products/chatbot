@@ -10,7 +10,7 @@
  * @param {Number} MaxNoResults [Number of no-results before trigger the escalation]
  * @param {Boolean} hideEscalateIntentMessage [When set to true, it will ignore the message given for the escalation message]
  */
-function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noAgentsAvailable,MaxNoResults,hideEscalateIntentMessage=true) {
+function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noAgentsAvailable,MaxNoResults,hideEscalateIntentMessage) {
   var initMaxResults=3;
   var setEscalations=true;
   var noResults=1;
@@ -22,6 +22,9 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
         {label: 'no', value:'escalateNo'}
       ]
   };
+  if(hideEscalateIntentMessage === undefined){
+    hideEscalateIntentMessage = true;
+  }
   if(typeof MaxNoResults == "undefined"){
     MaxNoResults = initMaxResults;
   }
