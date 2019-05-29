@@ -101,9 +101,7 @@ function launchNLEsclationForm(checkAgents,escalateNLForm,rejectedEscalation,noA
           chatBot.api.track('CONTACT_REJECTED',{value:"TRUE"});
           chatBot.actions.enableInput();
         }else{
-          next(optionData);
-          chatBot.actions.enableInput();
-          return;
+          return next(optionData);
         }
     });
     chatBot.subscriptions.onEscalateToAgent(function(escalationData, next) {
