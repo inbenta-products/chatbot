@@ -33,4 +33,4 @@ Parece que estás hablando en Castellano, dirígete a nuestra página en  <a hre
 
 ### Requirements
 
-Follow the instructions suggested in the [Language detector](https://developers.inbenta.io/chatbot/language-detection/language-detection) option 2 `Use the No Results dialog`, this dialog will be modified, and also a new intent with the `js_callback: customTrigger` will be added.
+Follow the instructions suggested in the [Language detector](https://developers.inbenta.io/chatbot/language-detection/language-detection-overview) option 2 `Use the No Results dialog`, this dialog will be modified, and also a new intent with the `js_callback: customTrigger` will be added.
