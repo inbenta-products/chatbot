@@ -27,7 +27,6 @@ Parece que estás hablando en Castellano, dirígete a nuestra página en  <a hre
 
 ```
 
-![appData](https://static-or00.inbenta.com/4c8a7c6304a7c0912f536f8da01742dca20974a719c1458457760e0ebc08dbee/sdk-docs-images/chatbot/Language_detector.png)
 
 **Caution:** Inbenta does **not** recommend that you use the language detector on every user-message: This doubles the number of API requests performed by the SDK and it can impact your rate limits.
 
