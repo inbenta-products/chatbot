@@ -51,7 +51,7 @@ function createCustomHTMLForm(checkAgents,noAgentsAvailable) {
       function escalate(){
           var escalationInfo=[];
           event.preventDefault();
-          var results = $(".inbenta-bot-escalation__form").serializeArray();
+          var results = document.querySelectorAll(".inbenta-bot-escalation__form__item .inbenta-bot-input");
           for (let index = 0; index < results.length; index++) {
               var key = results[index].name;
               escalationInfo[key] = results[index].value;
